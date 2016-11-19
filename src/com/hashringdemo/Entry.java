@@ -4,7 +4,11 @@ package com.hashringdemo;
 public class Entry {
     private String key;
 
-    // 使用FNV1_32_HASH算法计算服务器的Hash值。
+    Entry(String key) {
+        this.key = key;
+    }
+
+    // 同样使用FNV1_32_HASH算法计算entry的Hash值。
     @Override
     public int hashCode() {
         final int p = 16777619;
@@ -18,5 +22,10 @@ public class Entry {
         hash += hash << 5;
 
         return Math.abs(hash);
+    }
+
+    @Override
+    public String toString() {
+        return key;
     }
 }
