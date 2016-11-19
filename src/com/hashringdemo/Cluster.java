@@ -1,9 +1,12 @@
 package com.hashringdemo;
 
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 public class Cluster {
     private static final int SERVER_SIZE_MAX = 1024;
 
-    private Server[] servers = new Server[SERVER_SIZE_MAX];
+    private SortedMap<Integer, Server> servers = new TreeMap<Integer, Server>();
     private int size = 0;
 
     public void put(Entry e) {
@@ -15,14 +18,23 @@ public class Cluster {
     }
 
     public Server routeServer(int hash) {
-        return servers[hash % size];
+        if (servers.isEmpty())
+            return null;
+
+        if (!servers.containsKey(hash)) {
+            SortedMap<Integer, Server> tailMap = servers.tailMap(hash);
+            hash = tailMap.isEmpty() ? servers.firstKey() : tailMap.firstKey();
+        }
+        return servers.get(hash);
     }
 
     public boolean addServer(Server s) {
         if (size >= SERVER_SIZE_MAX)
             return false;
 
-        servers[size++] = s;
+        servers.put(s.hashCode(), s);
+
+        size++;
         return true;
     }
 }

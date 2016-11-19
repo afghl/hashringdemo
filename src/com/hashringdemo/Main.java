@@ -1,16 +1,10 @@
 package com.hashringdemo;
 
 public class Main {
+    public static void main(String[] args) {
+        Cluster c = createCluster();
 
-    private static void testServer() {
-        System.out.println(new Server("international").hashCode());
-        System.out.println(new Server("china").hashCode());
-        System.out.println(new Server("japanjapan").hashCode());
-        System.out.println(new Server("Amarica").hashCode());
-        System.out.println(new Server("samsungtsisger").hashCode());
-
-        System.out.println("entrys...");
-                Entry[] entries = {
+        Entry[] entries = {
                     new Entry("i"),
                     new Entry("have"),
                     new Entry("a"),
@@ -24,42 +18,21 @@ public class Main {
                 };
 
         for (Entry e : entries)
-            System.out.println(e.hashCode());
-    }
-    public static void main(String[] args) {
-        testServer();
-//        Cluster c = createCluster();
-//
-//        Entry[] entries = {
-//                    new Entry("i"),
-//                    new Entry("have"),
-//                    new Entry("a"),
-//                    new Entry("pen"),
-//                    new Entry("an"),
-//                    new Entry("apple"),
-//                    new Entry("applepen"),
-//                    new Entry("pineapple"),
-//                    new Entry("pineapplepen"),
-//                    new Entry("PPAP")
-//                };
-//
-//        for (Entry e : entries)
-//            c.put(e);
-//
-//        c.addServer(new Server("192.168.0.6"));
-//
-//        findEntries(c, entries);
+            c.put(e);
+
+        c.addServer(new Server("achuguniadsfaang"));
+        findEntries(c, entries);
 
     }
 
     private static Cluster createCluster() {
         Cluster c = new Cluster();
-        c.addServer(new Server("192.168.0.0"));
-        c.addServer(new Server("192.168.0.1"));
-        c.addServer(new Server("192.168.0.2"));
-        c.addServer(new Server("192.168.0.3"));
-        c.addServer(new Server("192.168.0.4"));
-        c.addServer(new Server("192.168.0.5"));
+        c.addServer(new Server("international"));
+        c.addServer(new Server("china"));
+        c.addServer(new Server("japanjapan"));
+        c.addServer(new Server("Amarica"));
+        c.addServer(new Server("samsungtsisger"));
+        c.addServer(new Server("achuguniang"));
         return c;
     }
 

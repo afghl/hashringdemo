@@ -22,4 +22,5 @@ public class Server {
     public int hashCode() {
         return name.hashCode();
     }
+
 }
