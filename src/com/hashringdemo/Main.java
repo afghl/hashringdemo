@@ -2,25 +2,53 @@ package com.hashringdemo;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Cluster c = createCluster();
+    private static void testServer() {
+        System.out.println(new Server("international").hashCode());
+        System.out.println(new Server("china").hashCode());
+        System.out.println(new Server("japanjapan").hashCode());
+        System.out.println(new Server("Amarica").hashCode());
+        System.out.println(new Server("samsungtsisger").hashCode());
 
-        Entry[] entries = { new Entry("apple"),
-                new Entry("applepen"),
-                new Entry("pineapple"),
-                new Entry("pineapplepen"),
-                new Entry("PPAP")
-            };
+        System.out.println("entrys...");
+                Entry[] entries = {
+                    new Entry("i"),
+                    new Entry("have"),
+                    new Entry("a"),
+                    new Entry("pen"),
+                    new Entry("an"),
+                    new Entry("apple"),
+                    new Entry("applepen"),
+                    new Entry("pineapple"),
+                    new Entry("pineapplepen"),
+                    new Entry("PPAP")
+                };
 
         for (Entry e : entries)
-            c.put(e);
-
-        findEnties(c, entries);
-
-        c.addServer(new Server("192.168.0.5"));
-
-        System.out.println("-----");
-        findEnties(c, entries);
+            System.out.println(e.hashCode());
+    }
+    public static void main(String[] args) {
+        testServer();
+//        Cluster c = createCluster();
+//
+//        Entry[] entries = {
+//                    new Entry("i"),
+//                    new Entry("have"),
+//                    new Entry("a"),
+//                    new Entry("pen"),
+//                    new Entry("an"),
+//                    new Entry("apple"),
+//                    new Entry("applepen"),
+//                    new Entry("pineapple"),
+//                    new Entry("pineapplepen"),
+//                    new Entry("PPAP")
+//                };
+//
+//        for (Entry e : entries)
+//            c.put(e);
+//
+//        c.addServer(new Server("192.168.0.6"));
+//
+//        findEntries(c, entries);
 
     }
 
@@ -30,15 +58,17 @@ public class Main {
         c.addServer(new Server("192.168.0.1"));
         c.addServer(new Server("192.168.0.2"));
         c.addServer(new Server("192.168.0.3"));
+        c.addServer(new Server("192.168.0.4"));
+        c.addServer(new Server("192.168.0.5"));
         return c;
     }
 
-    private static void findEnties(Cluster c, Entry[] entries) {
+    private static void findEntries(Cluster c, Entry[] entries) {
         for (Entry e : entries) {
             if (e == c.get(e)) {
-                System.out.println("重新找到了entry:" + e);
+                System.out.println("重新找到了entry: " + e);
             } else {
-                System.out.println("entry已失效:" + e);
+                System.out.println("entry已失效: " + e);
             }
         }
     }

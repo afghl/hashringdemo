@@ -7,13 +7,15 @@ public class Cluster {
     private int size = 0;
 
     public void put(Entry e) {
-        int index = e.hashCode() % size;
-        servers[index].put(e);
+        routeServer(e.hashCode()).put(e);
     }
 
     public Entry get(Entry e) {
-        int index = e.hashCode() % size;
-        return servers[index].get(e);
+        return routeServer(e.hashCode()).get(e);
+    }
+
+    public Server routeServer(int hash) {
+        return servers[hash % size];
     }
 
     public boolean addServer(Server s) {
